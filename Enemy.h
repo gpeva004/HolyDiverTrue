@@ -9,5 +9,6 @@ class Enemy {
 private:
 	int enemyHp;
 	int enemyDmg;
+
 };
 #endif
