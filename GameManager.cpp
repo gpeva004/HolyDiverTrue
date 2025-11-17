@@ -33,11 +33,11 @@ void GameManager::run() {
         }
     }
 }
-void  GameManager::Player() {
+//void  GameManager::Player() {
     
-    cout << playerName << hp << oxygen << lives << endl;
+  //  cout << playerName << hp << oxygen << lives << endl;
 
-}
+//}
 
 void GameManager::handleInput(char input) {
     if (input == 'q') {

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <conio.h>
-
+#include <time.h>
 using namespace std;
 
 Map::Map() : size(0), playerX(0), playerY(0) {
@@ -23,8 +23,11 @@ void Map::generateRandom(int n) {
     }
 
     // Random walls inside
+        srand(time(NULL));
     for (int i = 1; i < size - 1; ++i) {
+        
         for (int j = 1; j < size - 1; ++j) {
+            
             if (rand() % 5 == 0) grid[i][j] = '#'; // 20% chance of wall
         }
     }
