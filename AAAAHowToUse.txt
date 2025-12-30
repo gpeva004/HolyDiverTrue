@@ -1,6 +1,0 @@
-Extract and then open HolyDiver.sln
-
-run it, should load map and borders, then generate player to middle (P) and 2-3 enemies (E) in random locations.
-There are no stats for enemies or player yet.
-
-I used AI to help me find some correct syntaxes. Asked it to clarify and teach me some parts what they meant. 
