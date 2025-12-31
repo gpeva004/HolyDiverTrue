@@ -1,7 +1,2 @@
-﻿  GameManager.cpp
-  HolyDiver.cpp
-  Map.cpp
-C:\Kouluhommia\Uusi kansio\HolyDiverTrue\Map.cpp(28,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Player.cpp
-  Generating Code...
+﻿  Player.cpp
   HolyDiver.vcxproj -> C:\Kouluhommia\Uusi kansio\HolyDiverTrue\x64\Debug\HolyDiver.exe

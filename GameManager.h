@@ -1,27 +1,30 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
-using namespace std;
-
+#include <vector>
 #include "Map.h"
 #include "Player.h"
-
-  
+#include "Enemy.h"
 
 class GameManager {
 private:
     Map map;
     bool running;
+    std::vector<Enemy> enemies;
+    Player player;
 
 public:
     GameManager();
-    bool init();                           // load map, setup game
-    void run();                            // main loop
-    void handleInput(char input);          // process input
-    void update(char input);               // update game state
-    void render() const;                   // draw map
-    
-    
-    };
+
+    bool init();
+    void run();
+	void spawnEnemies();
+	void moveEnemies();
+    void handlePlayerMovement(char input);
+    void render() const;
+    void restart();
+	void gameOver();
+    void nextLevel();
+};
 
 #endif

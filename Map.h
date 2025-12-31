@@ -1,25 +1,38 @@
 #ifndef MAP_H
 #define MAP_H
 
-using namespace std;
-
-#include <string>
 #include <vector>
-#include <utility>
+#include <string>
+
+class Enemy;
 
 class Map {
 private:
     int size;
-    vector<vector<char>> grid;
-	vector<pair<int, int> > enemies; // store enemy positions
-    int playerX, playerY; // player position
-	int enemyX, enemyY; // enemy position
+    std::vector<std::vector<char>> grid;
+
+    int playerX;
+    int playerY;
 
 public:
     Map();
-	void generateRandom(int n);
-    void print() const;
-    void movePlayer(char input); // handle WASD input
+
+    void generateRandom(int n);
+    void print(const std::vector<Enemy>& enemies) const;
+    void movePlayer(char input);
+
+    int getSize() const { return size; }
+
+    char getTile(int x, int y) const { return grid[y][x]; }
+    bool isWalkable(int x, int y) const { return grid[y][x] != '#'; }
+
+    
+
+    int getPlayerX() const { return playerX; }
+    int getPlayerY() const { return playerY; }
+
+    void setTile(int x, int y, char value) { grid[y][x] = value; }
+    void clear();
 };
 
 #endif

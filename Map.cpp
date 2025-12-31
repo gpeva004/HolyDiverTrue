@@ -8,11 +8,17 @@
 #include <time.h>
 using namespace std;
 
-Map::Map() : size(0), playerX(0), playerY(0), enemyX(0), enemyY(0) {
+Map::Map() : size(0), playerX(0), playerY(0){
   
 }
-// Generate a random map with walls, player, and enemies
+// Generate a random map with walls, player
 void Map::generateRandom(int n) {
+    
+    /*Load a map from files
+    maybebaby
+	ifstream file("Levels/Map1.txt");
+    */
+
     size = n;
     grid.resize(size, vector<char>(size, '.'));
 
@@ -39,36 +45,57 @@ void Map::generateRandom(int n) {
     playerY = 10;
     grid[playerY][playerX] = '.';
 
-	// Place enemy to random spots
-	
-    enemies.clear();
-    for (int i = 0; i < 3; ++i) {
-        int ex = rand() % (size - 2) + 1;
-        int ey = rand() % (size - 2) + 1;
-        enemies.push_back({ ey, ex });
-        grid[ey][ex] = '.'; // Ensure enemy is not placed on a wall
+    // Place oxygen tanks 3 oxygens
+    for (int i = 0; i < 3; i++) {
+        int x = rand() % (size - 2) + 1;
+        int y = rand() % (size - 2) + 1;
+
+        if (grid[y][x] == '#') { i--; continue; }  // avoid walls
+        if (x == playerX && y == playerY) { i--; continue; }
+
+        grid[y][x] = 'O';  // O = oxygen tank
     }
+    // Place 3 treasures)
+    for (int i = 0; i < 3; i++) {
+        int x = rand() % (size - 2) + 1;
+        int y = rand() % (size - 2) + 1;
+
+        if (grid[y][x] == '#') { i--; continue; }
+        if (x == playerX && y == playerY) { i--; continue; }
+
+        grid[y][x] = 'T';  // Treasure
+    }
+
 }
 //Print the map to console
-void Map::print() const {
+void Map::print(const vector<Enemy>& enemies) const {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
+
             if (i == playerY && j == playerX) {
 				cout << 'P'; // prints player to the map
+				continue;
             }
-            else {
-                bool isEnemy = false;
-                for (const auto& enemy : enemies) {
-                    if (i == enemy.first && j == enemy.second) {
-						cout << 'E'; // prints enemy to the map
-                        isEnemy = true;
-                        break;
-                    }
+            
+            bool isEnemy = false; 
+             
+            for (const auto& e : enemies) {
+                if (e.getX() == j && e.getY() == i) { 
+
+                    // Print based on enemy type 
+                    if (e.getType() == "Wanderer") 
+                        cout << 'E'; 
+                    else 
+                        cout << 'M'; 
+                    isEnemy = true; 
+                    break; 
                 }
-                if (!isEnemy)
-                    cout << grid[i][j];
             }
-        }
+
+            if (!isEnemy) 
+                cout << grid[i][j];
+
+        } 
         cout << endl;
     }
 }
@@ -77,7 +104,7 @@ void Map::movePlayer(char input) {
     int newX = playerX;
     int newY = playerY;
 
-    
+
 
     if (input == 'w') newY--;
     else if (input == 's') newY++;
@@ -89,4 +116,14 @@ void Map::movePlayer(char input) {
         playerX = newX;
         playerY = newY;
     }
-} 
+    
+    //if (grid[newY][newX] == 'T'){
+    //    cout << "You found a treasure!" << endl;
+    //}
+}
+void Map::clear() {
+    grid.clear();
+    size = 0;
+    playerX = 0;
+    playerY = 0;
+}
